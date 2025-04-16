@@ -1,0 +1,126 @@
+/* Additional CSS for integrated product listings */
+.category-hero {
+  height: 300px;
+  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/api/placeholder/1200/300');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  margin-bottom: 40px;
+}
+
+.category-hero-content {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 30px;
+  border-radius: 10px;
+  max-width: 80%;
+}
+
+.category-hero h2 {
+  font-size: 48px;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+  margin-bottom: 15px;
+}
+
+.product-section {
+  padding: 40px 50px;
+}
+
+.product-section h3 {
+  font-size: 32px;
+  margin-bottom: 30px;
+  text-align: center;
+  color: #333;
+}
+
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+}
+
+.product-card {
+  width: 280px;
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+.product-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.product-info {
+  padding: 20px;
+}
+
+.product-info h4 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.product-info p {
+  color: #666;
+  margin-bottom: 15px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.product-price {
+  font-size: 18px;
+  font-weight: bold;
+  color: #F39C12;
+  margin-bottom: 15px;
+}
+
+.rent-button {
+  background-color: #1db7a5;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.rent-button:hover {
+  background-color: #169c8a;
+}
+
+/* Active navigation styling */
+nav ul li a.active {
+  color: #F39C12;
+  font-weight: 700;
+}
+
+/* Mobile responsiveness for product cards */
+@media (max-width: 768px) {
+  .product-section {
+    padding: 30px 20px;
+  }
+  
+  .product-card {
+    width: 100%;
+    max-width: 280px;
+  }
+  
+  .category-hero h2 {
+    font-size: 36px;
+  }
+}

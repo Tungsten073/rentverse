@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RentVerse - Medical Equipment</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+</head>
+<body>
+  <header>
+    <div class="logo"><h1>RentVerse</h1></div>
+    <nav id="main-nav">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="furniture.html">Furniture</a></li>
+        <li><a href="electronics.html">Electronics</a></li>
+        <li><a href="clothes.html">Clothes</a></li>
+        <li><a href="books.html">Books</a></li>
+        <li><a href="medical-equipment.html" class="active">Medical Equipment</a></li>
+        <li><a href="cart.html" id="cart-link"><i class="fas fa-shopping-cart"></i> Cart (0)</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="category-hero">
+      <div class="category-hero-content">
+        <h2>Medical Equipment</h2>
+        <p>Rent essential medical tools and devices for recovery and care.</p>
+      </div>
+    </section>
+
+    <section class="product-section">
+      <h3>Available Equipment</h3>
+      <div class="product-list">
+        <div class="product-card" data-category="medical" data-name="Stethoscope" data-price="100">
+          <img src="Inclining Bed.jpg" alt="Stethoscope" class="product-img" />
+          <div class="product-info">
+            <h4>Stethoscope</h4>
+            <p>Reliable diagnostic tool for home and clinical use.</p>
+            <div class="product-price">₹100/month</div>
+            <button class="rent-button">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="medical" data-name="Wheelchair" data-price="300">
+          <img src="WhatsApp Image 2025-03-03 at 09.23.06_1eff6db1.jpg" alt="Wheelchair" class="product-img" />
+          <div class="product-info">
+            <h4>Wheelchair</h4>
+            <p>Comfortable and lightweight wheelchair suitable for daily mobility.</p>
+            <div class="product-price">₹300/month</div>
+            <button class="rent-button">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="medical" data-name="Oxygen Cylinder" data-price="500">
+          <img src="cylin.jpg" alt="Oxygen Cylinder" class="product-img" />
+          <div class="product-info">
+            <h4>Oxygen Cylinder</h4>
+            <p>Certified oxygen supply for emergency and home recovery.</p>
+            <div class="product-price">₹500/month</div>
+            <button class="rent-button">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-bottom">
+      <p>&copy; 2025 RentVerse. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const updateCartCount = () => {
+        const cart = JSON.parse(localStorage.getItem("rentverseCart")) || [];
+        const cartLink = document.getElementById("cart-link");
+        if (cartLink) {
+          const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+          cartLink.innerHTML = '<i class="fas fa-shopping-cart"></i> Cart (' + count + ')';
+        }
+      };
+
+      document.querySelectorAll(".rent-button").forEach(button => {
+        button.addEventListener("click", () => {
+          const card = button.closest(".product-card");
+          const name = card.dataset.name;
+          const category = card.dataset.category;
+          const price = parseFloat(card.dataset.price);
+          const image = card.querySelector("img").getAttribute("src");
+
+          const cart = JSON.parse(localStorage.getItem("rentverseCart")) || [];
+          const existing = cart.find(item => item.name === name && item.category === category);
+
+          if (existing) {
+            existing.quantity += 1;
+          } else {
+            cart.push({ name, category, price, quantity: 1, durationType: "month", image });
+          }
+
+          localStorage.setItem("rentverseCart", JSON.stringify(cart));
+          updateCartCount();
+          alert(`${name} added to cart!`);
+        });
+      });
+
+      updateCartCount();
+    });
+  </script>
+</body>
+</html>

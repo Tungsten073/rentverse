@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RentVerse - Cart</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="cart.css">
+  <!-- Google Fonts for better typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <!-- Header with Logo and Navigation -->
+  <header>
+    <div class="logo">
+      <h1>RentVerse</h1>
+    </div>
+    <nav id="main-nav">
+      <button class="mobile-menu-toggle" id="mobile-menu-toggle">
+        <i class="fas fa-bars"></i>
+      </button>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="furniture.html">Furniture</a></li>
+        <li><a href="electronics.html">Electronics</a></li>
+        <li><a href="clothes.html">Clothes</a></li>
+        <li><a href="books.html">Books</a></li>
+        <li><a href="cart.html" id="cart-link" class="active"><i class="fas fa-shopping-cart"></i> Cart (<span id="cart-count">0</span>)</a></li>
+        <li class="more-menu">
+          <button class="more-button"><i class="fas fa-ellipsis-v"></i></button>
+          <div class="dropdown-content">
+            <a href="give-on-rent.html"><i class="fas fa-hand-holding-usd"></i> Give on Rent</a>
+            <a href="customer-care.html"><i class="fas fa-headset"></i> Customer Care</a>
+            <a href="feedback.html"><i class="fas fa-comment-alt"></i> Feedback</a>
+            <a href="account.html"><i class="fas fa-user"></i> My Account</a>
+            <a href="wishlist.html"><i class="fas fa-heart"></i> Wishlist</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main Content Section -->
+  <main>
+    <section class="cart-section">
+      <h2>Your Cart</h2>
+      <div id="cart-empty-message">
+        <i class="fas fa-shopping-cart cart-icon"></i>
+        <p>Your cart is empty. Add items to proceed.</p>
+        <a href="index.html" class="continue-shopping-btn">Continue Shopping</a>
+      </div>
+      
+      <div id="cart-items-container" class="hidden">
+        <div class="cart-headers">
+          <div class="cart-header-item">Item</div>
+          <div class="cart-header-price">Price</div>
+          <div class="cart-header-quantity">Quantity</div>
+          <div class="cart-header-duration">Duration</div>
+          <div class="cart-header-total">Total</div>
+          <div class="cart-header-action">Action</div>
+        </div>
+        
+        <div id="cart-items">
+          <!-- Cart items will be added here dynamically -->
+        </div>
+        
+        <div class="cart-summary">
+          <div class="summary-row subtotal">
+            <span>Subtotal:</span>
+            <span id="subtotal-amount">₹0</span>
+          </div>
+          <div class="summary-row shipping">
+            <span>Shipping:</span>
+            <span id="shipping-amount">₹0</span>
+          </div>
+          <div class="summary-row tax">
+            <span>Tax (18% GST):</span>
+            <span id="tax-amount">₹0</span>
+          </div>
+          <div class="summary-row total">
+            <span>Total:</span>
+            <span id="total-amount">₹0</span>
+          </div>
+        </div>
+        
+        <button id="proceed-checkout-btn" class="proceed-checkout-btn">Proceed to Checkout</button>
+      </div>
+    </section>
+    
+    <!-- Checkout Section (Initially Hidden) -->
+    <section id="checkout-section" class="checkout-section hidden">
+      <h2>Checkout</h2>
+      
+      <div class="checkout-container">
+        <div class="delivery-address">
+          <h3>Delivery Address</h3>
+          <form id="address-form">
+            <div class="form-group">
+              <label for="full-name">Full Name</label>
+              <input type="text" id="full-name" name="full-name" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="mobile">Mobile Number</label>
+              <input type="tel" id="mobile" name="mobile" pattern="[0-9]{10}" required>
+              <small>10-digit mobile number without country code</small>
+            </div>
+            
+            <div class="form-group">
+              <label for="address-line1">Address Line 1</label>
+              <input type="text" id="address-line1" name="address-line1" required>
+              <small>House No., Building Name, Street</small>
+            </div>
+            
+            <div class="form-group">
+              <label for="address-line2">Address Line 2</label>
+              <input type="text" id="address-line2" name="address-line2">
+              <small>Landmark, Area (Optional)</small>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="city">City</label>
+                <input type="text" id="city" name="city" required>
+              </div>
+              
+              <div class="form-group">
+                <label for="state">State</label>
+                <select id="state" name="state" required>
+                  <option value="">Select State</option>
+                  <option value="AN">Andaman and Nicobar Islands</option>
+                  <option value="AP">Andhra Pradesh</option>
+                  <option value="AR">Arunachal Pradesh</option>
+                  <option value="AS">Assam</option>
+                  <option value="BR">Bihar</option>
+                  <option value="CH">Chandigarh</option>
+                  <option value="CT">Chhattisgarh</option>
+                  <option value="DN">Dadra and Nagar Haveli</option>
+                  <option value="DD">Daman and Diu</option>
+                  <option value="DL">Delhi</option>
+                  <option value="GA">Goa</option>
+                  <option value="GJ">Gujarat</option>
+                  <option value="HR">Haryana</option>
+                  <option value="HP">Himachal Pradesh</option>
+                  <option value="JK">Jammu and Kashmir</option>
+                  <option value="JH">Jharkhand</option>
+                  <option value="KA">Karnataka</option>
+                  <option value="KL">Kerala</option>
+                  <option value="LA">Ladakh</option>
+                  <option value="LD">Lakshadweep</option>
+                  <option value="MP">Madhya Pradesh</option>
+                  <option value="MH">Maharashtra</option>
+                  <option value="MN">Manipur</option>
+                  <option value="ML">Meghalaya</option>
+                  <option value="MZ">Mizoram</option>
+                  <option value="NL">Nagaland</option>
+                  <option value="OR">Odisha</option>
+                  <option value="PY">Puducherry</option>
+                  <option value="PB">Punjab</option>
+                  <option value="RJ">Rajasthan</option>
+                  <option value="SK">Sikkim</option>
+                  <option value="TN">Tamil Nadu</option>
+                  <option value="TG">Telangana</option>
+                  <option value="TR">Tripura</option>
+                  <option value="UP">Uttar Pradesh</option>
+                  <option value="UT">Uttarakhand</option>
+                  <option value="WB">West Bengal</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="pincode">PIN Code</label>
+              <input type="text" id="pincode" name="pincode" pattern="[0-9]{6}" required>
+              <small>6-digit PIN code</small>
+            </div>
+          </form>
+        </div>
+        
+        <div class="payment-method">
+          <h3>Payment Method</h3>
+          <div class="payment-option">
+            <input type="radio" id="pay-on-delivery" name="payment-method" value="cod" checked>
+            <label for="pay-on-delivery">
+              <i class="fas fa-money-bill-wave"></i>
+              Pay on Delivery
+            </label>
+            <p class="payment-description">Pay in cash at the time of delivery</p>
+          </div>
+        </div>
+        
+        <div class="order-summary">
+          <h3>Order Summary</h3>
+          <div id="checkout-items">
+            <!-- Checkout items will be dynamically added here -->
+          </div>
+          <div class="checkout-total">
+            <span>Total:</span>
+            <span id="checkout-total-amount">₹0</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="checkout-actions">
+        <button id="back-to-cart-btn" class="back-to-cart-btn">Back to Cart</button>
+        <button id="place-order-btn" class="place-order-btn">Place Order</button>
+      </div>
+    </section>
+    
+    <!-- Order Confirmation Section (Initially Hidden) -->
+    <section id="order-confirmation" class="order-confirmation hidden">
+      <i class="fas fa-check-circle confirmation-icon"></i>
+      <h2>Order Placed Successfully!</h2>
+      <p>Your order has been placed successfully. You will receive a confirmation email shortly.</p>
+      <div class="order-details">
+        <p>Order ID: <span id="order-id">RV2025040001</span></p>
+        <p>Expected Delivery: <span id="delivery-date">Within 3-5 working days</span></p>
+      </div>
+      <a href="index.html" class="continue-shopping-btn">Continue Shopping</a>
+    </section>
+  </main>
+
+  <!-- Enhanced Footer Section -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-column">
+        <h4>About RentVerse</h4>
+        <ul>
+          <li><a href="about-us.html">About Us</a></li>
+          <li><a href="our-team.html">Our Team</a></li>
+          <li><a href="careers.html">Careers</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="press.html">Press & Media</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h4>Customer Service</h4>
+        <ul>
+          <li><a href="contact-us.html">Contact Us</a></li>
+          <li><a href="faq.html">FAQs</a></li>
+          <li><a href="shipping-policy.html">Shipping Policy</a></li>
+          <li><a href="return-policy.html">Return Policy</a></li>
+          <li><a href="help-center.html">Help Center</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h4>Renting</h4>
+        <ul>
+          <li><a href="how-it-works.html">How It Works</a></li>
+          <li><a href="give-on-rent.html">Give on Rent</a></li>
+          <li><a href="damage-protection.html">Damage Protection</a></li>
+          <li><a href="renter-verification.html">Renter Verification</a></li>
+          <li><a href="success-stories.html">Success Stories</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h4>Stay Connected</h4>
+        <p>Subscribe to our newsletter for the latest updates and offers.</p>
+        <form class="newsletter-form">
+          <input type="email" placeholder="Your email address">
+          <button type="submit">Subscribe</button>
+        </form>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-pinterest"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2025 RentVerse. All Rights Reserved.</p>
+      <p>
+        <a href="privacy-policy.html">Privacy Policy</a> | 
+        <a href="terms-of-service.html">Terms of Service</a> | 
+        <a href="sitemap.html">Sitemap</a> | 
+        <a href="accessibility.html">Accessibility</a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="cart.js"></script>
+  
+  <!-- JavaScript for Mobile Menu -->
+  <script>
+    // Mobile Menu Toggle
+    document.getElementById('mobile-menu-toggle').addEventListener('click', function() {
+      document.getElementById('main-nav').classList.toggle('active');
+    });
+  </script>
+
+<script>
+function loadCart() {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const container = document.getElementById('cart-items');
+  const emptyMsg = document.getElementById('cart-empty-message');
+  const itemsContainer = document.getElementById('cart-items-container');
+  const subtotalElem = document.getElementById('subtotal-amount');
+  const taxElem = document.getElementById('tax-amount');
+  const totalElem = document.getElementById('total-amount');
+  const cartCount = document.getElementById('cart-count');
+
+  if (cart.length === 0) {
+    emptyMsg.classList.remove('hidden');
+    itemsContainer.classList.add('hidden');
+    cartCount.textContent = '0';
+    return;
+  }
+
+  emptyMsg.classList.add('hidden');
+  itemsContainer.classList.remove('hidden');
+  container.innerHTML = '';
+  cartCount.textContent = cart.reduce((acc, item) => acc + item.quantity, 0);
+
+  let subtotal = 0;
+
+  cart.forEach((item, index) => {
+    const total = item.price * item.quantity;
+    subtotal += total;
+
+    const row = document.createElement('div');
+    row.className = 'cart-row';
+    row.innerHTML = `
+      <div>${item.title}</div>
+      <div>₹${item.price}</div>
+      <div>
+        <input type="number" min="1" value="${item.quantity}" data-index="${index}" class="qty-input" />
+      </div>
+      <div>${item.duration} days</div>
+      <div>₹${total}</div>
+      <div><button class="remove-btn" data-index="${index}">Remove</button></div>
+    `;
+    container.appendChild(row);
+  });
+
+  const tax = subtotal * 0.18;
+  const total = subtotal + tax;
+
+  subtotalElem.textContent = `₹${subtotal.toFixed(2)}`;
+  taxElem.textContent = `₹${tax.toFixed(2)}`;
+  totalElem.textContent = `₹${total.toFixed(2)}`;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  loadCart();
+
+  document.getElementById('cart-items').addEventListener('input', (e) => {
+    if (e.target.classList.contains('qty-input')) {
+      const index = e.target.getAttribute('data-index');
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart[index].quantity = parseInt(e.target.value);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      loadCart();
+    }
+  });
+
+  document.getElementById('cart-items').addEventListener('click', (e) => {
+    if (e.target.classList.contains('remove-btn')) {
+      const index = e.target.getAttribute('data-index');
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart.splice(index, 1);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      loadCart();
+    }
+  });
+
+  document.getElementById('proceed-checkout-btn')?.addEventListener('click', () => {
+    document.querySelector('.cart-section').classList.add('hidden');
+    document.getElementById('checkout-section').classList.remove('hidden');
+
+    const checkoutItems = document.getElementById('checkout-items');
+    const checkoutTotal = document.getElementById('checkout-total-amount');
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    checkoutItems.innerHTML = '';
+    let total = 0;
+    cart.forEach(item => {
+      const itemTotal = item.price * item.quantity;
+      total += itemTotal;
+      const row = document.createElement('div');
+      row.textContent = `${item.title} (x${item.quantity}) - ₹${itemTotal}`;
+      checkoutItems.appendChild(row);
+    });
+    checkoutTotal.textContent = `₹${(total + total * 0.18).toFixed(2)}`;
+  });
+
+  document.getElementById('place-order-btn')?.addEventListener('click', () => {
+    const form = document.getElementById('address-form');
+    if (!form.reportValidity()) return;
+
+    document.getElementById('checkout-section').classList.add('hidden');
+    document.getElementById('order-confirmation').classList.remove('hidden');
+
+    localStorage.removeItem('cart');
+
+    setTimeout(() => {
+      window.location.href = "index.html";
+    }, 5000);
+  });
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RentVerse - Antiques</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Google Fonts for better typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <!-- Header with Logo and Navigation -->
+  <header>
+    <div class="logo">
+      <h1>RentVerse</h1>
+    </div>
+    <nav id="main-nav">
+      <button class="mobile-menu-toggle" id="mobile-menu-toggle">
+        <i class="fas fa-bars"></i>
+      </button>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="furniture.html">Furniture</a></li>
+        <li><a href="electronics.html">Electronics</a></li>
+        <li><a href="clothes.html">Clothes</a></li>
+        <li><a href="books.html">Books</a></li>
+        <li><a href="cart.html" id="cart-link"><i class="fas fa-shopping-cart"></i> Cart (0)</a></li>
+        <li class="more-menu">
+          <button class="more-button"><i class="fas fa-ellipsis-v"></i></button>
+          <div class="dropdown-content">
+            <a href="give-on-rent.html"><i class="fas fa-hand-holding-usd"></i> Give on Rent</a>
+            <a href="customer-care.html"><i class="fas fa-headset"></i> Customer Care</a>
+            <a href="feedback.html"><i class="fas fa-comment-alt"></i> Feedback</a>
+            <a href="account.html"><i class="fas fa-user"></i> My Account</a>
+            <a href="wishlist.html"><i class="fas fa-heart"></i> Wishlist</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main Content Section -->
+  <main>
+    <section class="category-hero">
+      <div class="category-hero-content">
+        <h2>Antiques</h2>
+        <p>Rent unique, rare, and authentic antique items for displays, events, and special occasions.</p>
+      </div>
+    </section>
+
+    <section id="antiques-products" class="product-section">
+      <h3>Available Antiques</h3>
+      <div class="product-list">
+        <div class="product-card" data-category="antiques" data-name="Dummy Sword" data-price="300">
+          <img src="/api/placeholder/300/200" alt="Dummy Sword" class="product-img">
+          <div class="product-info">
+            <h4>Decorative Sword</h4>
+            <p>Unique antique sword replica for your collection or historical displays.</p>
+            <div class="product-price">₹300/week</div>
+            <button class="rent-button">Add to Cart</button>
+          </div>
+        </div>
+        <div class="product-card" data-category="antiques" data-name="Vintage Record Player" data-price="250">
+          <img src="/api/placeholder/300/200" alt="Vintage Record Player" class="product-img">
+          <div class="product-info">
+            <h4>Vintage Record Player</h4>
+            <p>Authentic vintage record player from the 1960s, perfect for themed events.</p>
+            <div class="product-price">₹250/week</div>
+            <button class="rent-button">Add to Cart</button>
+          </div>
+        </div>
+        <div class="product-card" data-category="antiques" data-name="Antique Clock" data-price="200">
+          <img src="/api/placeholder/300/200" alt="Antique Clock" class="product-img">
+          <div class="product-info">
+            <h4>Antique Grandfather Clock</h4>
+            <p>Beautiful wooden grandfather clock with intricate detailing and pendulum mechanism.</p>
+            <div class="product-price">₹200/week</div>
+            <button class="rent-button">Add to Cart</button>
+          </div>
+        </div>
+        <div class="product-card" data-category="antiques" data-name="Vintage Camera" data-price="150">
+          <img src="/api/placeholder/300/200" alt="Vintage Camera" class="product-img">
+          <div class="product-info">
+            <h4>Vintage Camera</h4>
+            <p>Classic camera model from the 1950s. Great for photo shoots and movie sets.</p>
+            <div class="product-price">₹150/week</div>
+            <button class="rent-button">Add to Cart</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  
+    <!-- Footer -->
+    <footer>
+      <div class="footer-container">
+        <p>&copy; 2025 RentVerse. All Rights Reserved.</p>
+      </div>
+    </footer>
+  
+    <!-- Cart functionality script -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const updateCartCount = () => {
+          const cart = JSON.parse(localStorage.getItem("rentverseCart")) || [];
+          const cartLink = document.getElementById("cart-link");
+          if (cartLink) {
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartLink.innerHTML = '<i class="fas fa-shopping-cart"></i> Cart (' + count + ')';
+          }
+        };
+  
+        document.querySelectorAll(".rent-button").forEach(button => {
+          button.addEventListener("click", () => {
+            const card = button.closest(".product-card");
+            const name = card.dataset.name;
+            const category = card.dataset.category;
+            const price = parseFloat(card.dataset.price);
+            const image = card.querySelector("img").getAttribute("src");
+  
+            let cart = JSON.parse(localStorage.getItem("rentverseCart")) || [];
+  
+            const existing = cart.find(item => item.name === name && item.category === category);
+            if (existing) {
+              existing.quantity += 1;
+            } else {
+              cart.push({
+                name,
+                category,
+                price,
+                quantity: 1,
+                durationType: "week",
+                image
+              });
+            }
+  
+            localStorage.setItem("rentverseCart", JSON.stringify(cart));
+            updateCartCount();
+            alert(`${name} added to cart!`);
+          });
+        });
+  
+        updateCartCount();
+      });
+    </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const updateCartCount = () => {
+        const cart = JSON.parse(localStorage.getItem("rentverseCart")) || [];
+        const cartLink = document.getElementById("cart-link");
+        if (cartLink) {
+          const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+          cartLink.innerHTML = `<i class="fas fa-shopping-cart"></i> Cart (${count})`;
+        }
+      };
+  
+      document.querySelectorAll(".rent-button").forEach(button => {
+        button.addEventListener("click", () => {
+          const card = button.closest(".product-card");
+          const image = card.querySelector("img")?.getAttribute("src") || "";
+          const name = card.dataset.name;
+          const category = card.dataset.category;
+          const price = parseFloat(card.dataset.price);
+  
+          const cart = JSON.parse(localStorage.getItem("rentverseCart")) || [];
+  
+          const existing = cart.find(item => item.name === name && item.category === category);
+          if (existing) {
+            existing.quantity += 1;
+          } else {
+            cart.push({
+              name,
+              category,
+              price,
+              quantity: 1,
+              durationType: "month",
+              image
+            });
+          }
+  
+          localStorage.setItem("rentverseCart", JSON.stringify(cart));
+          updateCartCount();
+          alert(`${name} added to cart!`);
+        });
+      });
+  
+      updateCartCount();
+    });
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const updateCartCount = () => {
+        const cart = JSON.parse(localStorage.getItem("rentverseCart")) || [];
+        const cartLink = document.getElementById("cart-link");
+        if (cartLink) {
+          const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+          cartLink.innerHTML = `<i class="fas fa-shopping-cart"></i> Cart (${count})`;
+        }
+      };
+  
+      document.querySelectorAll(".rent-button").forEach(button => {
+        button.addEventListener("click", () => {
+          const card = button.closest(".product-card");
+          const image = card.querySelector("img")?.getAttribute("src") || "";
+          const name = card.dataset.name;
+          const category = card.dataset.category;
+          const price = parseFloat(card.dataset.price);
+  
+          const cart = JSON.parse(localStorage.getItem("rentverseCart")) || [];
+  
+          const existing = cart.find(item => item.name === name && item.category === category);
+          if (existing) {
+            existing.quantity += 1;
+          } else {
+            cart.push({
+              name,
+              category,
+              price,
+              quantity: 1,
+              durationType: "month",
+              image
+            });
+          }
+  
+          localStorage.setItem("rentverseCart", JSON.stringify(cart));
+          updateCartCount();
+          alert(`${name} added to cart!`);
+        });
+      });
+  
+      updateCartCount();
+    });
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const updateCartCount = () => {
+        const cart = JSON.parse(localStorage.getItem("rentverseCart")) || [];
+        const cartLink = document.getElementById("cart-link");
+        if (cartLink) {
+          const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+          cartLink.innerHTML = `<i class="fas fa-shopping-cart"></i> Cart (${count})`;
+        }
+      };
+  
+      document.querySelectorAll(".rent-button").forEach(button => {
+        button.addEventListener("click", () => {
+          const card = button.closest(".product-card");
+          const image = card.querySelector("img")?.getAttribute("src") || "";
+          const name = card.dataset.name;
+          const category = card.dataset.category;
+          const price = parseFloat(card.dataset.price);
+  
+          const cart = JSON.parse(localStorage.getItem("rentverseCart")) || [];
+  
+          const existing = cart.find(item => item.name === name && item.category === category);
+          if (existing) {
+            existing.quantity += 1;
+          } else {
+            cart.push({
+              name,
+              category,
+              price,
+              quantity: 1,
+              durationType: "month",
+              image
+            });
+          }
+  
+          localStorage.setItem("rentverseCart", JSON.stringify(cart));
+          updateCartCount();
+          alert(`${name} added to cart!`);
+        });
+      });
+  
+      updateCartCount();
+    });
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const updateCartCount = () => {
+        const cart = JSON.parse(localStorage.getItem("rentverseCart")) || [];
+        const cartLink = document.getElementById("cart-link");
+        if (cartLink) {
+          const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+          cartLink.innerHTML = `<i class="fas fa-shopping-cart"></i> Cart (${count})`;
+        }
+      };
+  
+      document.querySelectorAll(".rent-button").forEach(button => {
+        button.addEventListener("click", () => {
+          const card = button.closest(".product-card");
+          const image = card.querySelector("img")?.getAttribute("src") || "";
+          const name = card.dataset.name;
+          const category = card.dataset.category;
+          const price = parseFloat(card.dataset.price);
+  
+          const cart = JSON.parse(localStorage.getItem("rentverseCart")) || [];
+  
+          const existing = cart.find(item => item.name === name && item.category === category);
+          if (existing) {
+            existing.quantity += 1;
+          } else {
+            cart.push({
+              name,
+              category,
+              price,
+              quantity: 1,
+              durationType: "month",
+              image
+            });
+          }
+  
+          localStorage.setItem("rentverseCart", JSON.stringify(cart));
+          updateCartCount();
+          alert(`${name} added to cart!`);
+        });
+      });
+  
+      updateCartCount();
+    });
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const updateCartCount = () => {
+        const cart = JSON.parse(localStorage.getItem("rentverseCart")) || [];
+        const cartLink = document.getElementById("cart-link");
+        if (cartLink) {
+          const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+          cartLink.innerHTML = `<i class="fas fa-shopping-cart"></i> Cart (${count})`;
+        }
+      };
+  
+      document.querySelectorAll(".rent-button").forEach(button => {
+        button.addEventListener("click", () => {
+          const card = button.closest(".product-card");
+          const image = card.querySelector("img")?.getAttribute("src") || "";
+          const name = card.dataset.name;
+          const category = card.dataset.category;
+          const price = parseFloat(card.dataset.price);
+  
+          const cart = JSON.parse(localStorage.getItem("rentverseCart")) || [];
+  
+          const existing = cart.find(item => item.name === name && item.category === category);
+          if (existing) {
+            existing.quantity += 1;
+          } else {
+            cart.push({
+              name,
+              category,
+              price,
+              quantity: 1,
+              durationType: "month",
+              image
+            });
+          }
+  
+          localStorage.setItem("rentverseCart", JSON.stringify(cart));
+          updateCartCount();
+          alert(`${name} added to cart!`);
+        });
+      });
+  
+      updateCartCount();
+    });
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const updateCartCount = () => {
+        const cart = JSON.parse(localStorage.getItem("rentverseCart")) || [];
+        const cartLink = document.getElementById("cart-link");
+        if (cartLink) {
+          const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+          cartLink.innerHTML = `<i class="fas fa-shopping-cart"></i> Cart (${count})`;
+        }
+      };
+  
+      document.querySelectorAll(".rent-button").forEach(button => {
+        button.addEventListener("click", () => {
+          const card = button.closest(".product-card");
+          const image = card.querySelector("img")?.getAttribute("src") || "";
+          const name = card.dataset.name;
+          const category = card.dataset.category;
+          const price = parseFloat(card.dataset.price);
+  
+          const cart = JSON.parse(localStorage.getItem("rentverseCart")) || [];
+  
+          const existing = cart.find(item => item.name === name && item.category === category);
+          if (existing) {
+            existing.quantity += 1;
+          } else {
+            cart.push({
+              name,
+              category,
+              price,
+              quantity: 1,
+              durationType: "month",
+              image
+            });
+          }
+  
+          localStorage.setItem("rentverseCart", JSON.stringify(cart));
+          updateCartCount();
+          alert(`${name} added to cart!`);
+        });
+      });
+  
+      updateCartCount();
+    });
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const updateCartCount = () => {
+        const cart = JSON.parse(localStorage.getItem("rentverseCart")) || [];
+        const cartLink = document.getElementById("cart-link");
+        if (cartLink) {
+          const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+          cartLink.innerHTML = `<i class="fas fa-shopping-cart"></i> Cart (${count})`;
+        }
+      };
+  
+      document.querySelectorAll(".rent-button").forEach(button => {
+        button.addEventListener("click", () => {
+          const card = button.closest(".product-card");
+          const image = card.querySelector("img")?.getAttribute("src") || "";
+          const name = card.dataset.name;
+          const category = card.dataset.category;
+          const price = parseFloat(card.dataset.price);
+  
+          const cart = JSON.parse(localStorage.getItem("rentverseCart")) || [];
+  
+          const existing = cart.find(item => item.name === name && item.category === category);
+          if (existing) {
+            existing.quantity += 1;
+          } else {
+            cart.push({
+              name,
+              category,
+              price,
+              quantity: 1,
+              durationType: "month",
+              image
+            });
+          }
+  
+          localStorage.setItem("rentverseCart", JSON.stringify(cart));
+          updateCartCount();
+          alert(`${name} added to cart!`);
+        });
+      });
+  
+      updateCartCount();
+    });
+  </script>
+  </body>
+  </html>
+  
